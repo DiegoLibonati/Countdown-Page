@@ -23,20 +23,6 @@ I made a web page that allows you to see a countdown, it can be very useful for 
 2. CSS3
 3. HTML5
 
-## Galery
-
-![Countdown](https://raw.githubusercontent.com/DiegoLibonati/DiegoLibonatiWeb/main/data/projects/Javascript/Imagenes/countdown-0.jpg)
-
-![Countdown](https://raw.githubusercontent.com/DiegoLibonati/DiegoLibonatiWeb/main/data/projects/Javascript/Imagenes/countdown-1.jpg)
-
-![Countdown](https://raw.githubusercontent.com/DiegoLibonati/DiegoLibonatiWeb/main/data/projects/Javascript/Imagenes/countdown-2.jpg)
-
-![Countdown](https://raw.githubusercontent.com/DiegoLibonati/DiegoLibonatiWeb/main/data/projects/Javascript/Imagenes/countdown-3.jpg)
-
-## Portfolio Link
-
-`https://diegolibonati.github.io/DiegoLibonatiWeb/#/projects?q=Countdown%20Page`
-
 ## Video
 
 https://user-images.githubusercontent.com/99032604/199129935-7fee4660-6ad7-4417-b4dc-70f5934e4e0d.mp4
