@@ -27,7 +27,7 @@ I made a web page that allows you to see a countdown, it can be very useful for 
 ## Technologies used
 
 1. Typescript
-2. CSS3
+2. TailwindCSS
 3. HTML5
 
 ## Video
@@ -101,6 +101,18 @@ function getTimeLeft() {
 
   const leftTime: number = lastDate.valueOf() - actualDate.valueOf();
 
+  if (leftTime <= 0) {
+    clearInterval(intervalGetTimeLeft);
+
+    const p: HTMLParagraphElement = document.createElement("p")
+    p.setAttribute("class", "text-[#CCC3F6] w-full")
+    p.style.textAlign = "center"
+    p.innerHTML = "The time to claim the offer has expired"
+    countdownOverContainer.innerHTML = ""
+    countdownOverContainer.append(p)
+    return
+  }
+
   const leftDays: number = Math.floor(leftTime / oneDay);
   const leftHours: number = Math.floor((leftTime % oneDay) / oneHour);
   const leftMins: number = Math.floor((leftTime % oneHour) / oneMin);
@@ -113,11 +125,6 @@ function getTimeLeft() {
 
     headElement.innerHTML = format0(arrayLeftTime[index]);
   });
-
-  if (leftTime <= 0) {
-    clearInterval(intervalGetTimeLeft);
-    countdownOverContainer.innerHTML = "<p> Ends :( </p>";
-  }
 }
 
 function format0(item: number): string {

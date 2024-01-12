@@ -6,50 +6,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Countdown</title>
 
-    <link rel="stylesheet" type="text/css" href="./src/styles.css" />
+    <link rel="stylesheet" type="text/css" href="./dist/styles.css" />
   </head>
   <body>
-    <main>
-      <section class="section-container">
-        <article class="article-container">
-          <div class="img-center">
-            <img
-              src="https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/iphone-12-family-select-2021?wid=940&hei=1112&fmt=jpeg&qlt=80&.v=1617135051000"
-              alt="iphone"
-            />
-          </div>
-        </article>
-
-        <article class="article-container">
-          <div class="info-center">
-            <h2>OLD IPHONE GIVEAWAY</h2>
-            <h4>Giveaway Ends On Monday, 4 May 2020 11:30am</h4>
-            <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Itaque
-              eligendi soluta magnam, ratione rerum ex animi libero dignissimos
-              beatae veritatis.
-            </p>
-          </div>
-
-          <div class="countdown-container">
-            <div class="cd-center days">
-              <h4>10</h4>
-              <span>Days</span>
+    <main class="h-screen w-screen bg-[#fafafa]">
+      <section class="flex items-center justify-center w-full h-full">
+        <article
+          class="relative flex items-center justify-center flex-col w-[20rem] h-auto rounded-lg shadow-md"
+        >
+          <img
+            src="./src/assets/cell.png"
+            alt="iphone"
+            class="absolute -top-24 -right-6 z-20 h-auto w-24 object-cover"
+          />
+          <div
+            class="flex flex-col items-center justify-center w-[18.5rem] h-48 p-3 m-2 bg-gradient-to-r from-violet-500 to-fuchsia-500 rounded-lg shadow-sm"
+          >
+            <div class="info-center self-start">
+              <h2 class="text-base text-[#CCC3F6]">OLD IPHONE GIVEAWAY</h2>
+              <h4 class="text-sm text-[#CCC3F6]"></h4>
             </div>
 
-            <div class="cd-center hours">
-              <h4>10</h4>
-              <span>Hours</span>
-            </div>
+            <div class="flex flex-row items-center justify-between w-full mt-2 countdown-container">
+              <div
+                class="flex items-center justify-center flex-col days cd-center"
+              >
+                <h4
+                  class="py-3 px-2 bg-[#C2D0F7] bg-opacity-75 rounded-lg text-white font-bold mb-2"
+                >
+                  10
+                </h4>
+                <span class="text-[#CCC3F6]">Days</span>
+              </div>
 
-            <div class="cd-center mins">
-              <h4>10</h4>
-              <span>Mins</span>
-            </div>
+              <div
+                class="flex items-center justify-center flex-col hours cd-center"
+              >
+                <h4
+                  class="py-3 px-2 bg-[#C2D0F7] bg-opacity-75 rounded-lg text-white font-bold mb-2"
+                >
+                  10
+                </h4>
+                <span class="text-[#CCC3F6]">Hours</span>
+              </div>
 
-            <div class="cd-center secs">
-              <h4>10</h4>
-              <span>Secs</span>
+              <div
+                class="flex items-center justify-center flex-col mins cd-center"
+              >
+                <h4
+                  class="py-3 px-2 bg-[#C2D0F7] bg-opacity-75 rounded-lg text-white font-bold mb-2"
+                >
+                  10
+                </h4>
+                <span class="text-[#CCC3F6]">Mins</span>
+              </div>
+
+              <div
+                class="flex items-center justify-center flex-col secs cd-center"
+              >
+                <h4
+                  class="py-3 px-2 bg-[#C2D0F7] bg-opacity-75 rounded-lg text-white font-bold mb-2"
+                >
+                  10
+                </h4>
+                <span class="text-[#CCC3F6]">Secs</span>
+              </div>
             </div>
           </div>
         </article>
