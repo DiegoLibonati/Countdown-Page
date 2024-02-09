@@ -30,8 +30,7 @@ function getTimeLeft() {
     clearInterval(intervalGetTimeLeft);
 
     const p: HTMLParagraphElement = document.createElement("p")
-    p.setAttribute("class", "text-[#CCC3F6] w-full")
-    p.style.textAlign = "center"
+    p.setAttribute("class", "text-[#CCC3F6] w-full text-center")
     p.innerHTML = "The time to claim the offer has expired"
     countdownOverContainer.innerHTML = ""
     countdownOverContainer.append(p)
