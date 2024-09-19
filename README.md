@@ -1,4 +1,4 @@
-# Countdown-Page
+# Countdown Page
 
 ## Getting Started
 
@@ -32,7 +32,7 @@ I made a web page that allows you to see a countdown, it can be very useful for 
 
 ## Portfolio Link
 
-[`https://www.diegolibonati.com.ar/#/project/96`](https://www.diegolibonati.com.ar/#/project/96)
+[`https://www.diegolibonati.com.ar/#/project/Countdown-Page`](https://www.diegolibonati.com.ar/#/project/Countdown-Page)
 
 ## Video
 
