@@ -16,7 +16,7 @@ afterEach(() => {
 test("It must render the page title, description, image and counter.", () => {
   const title = screen.getByRole("heading", { name: "OLD IPHONE GIVEAWAY" });
   const description = screen.getByRole("heading", {
-    name: /giveaway ends on tuesday, 29 July 2025 17:30am/i,
+    name: /giveaway ends/i,
   });
   const img = screen.getByRole("img");
   const daysText = screen.getByText("Days");

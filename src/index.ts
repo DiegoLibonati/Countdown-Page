@@ -48,12 +48,18 @@ const getTimeLeft = (): void => {
 const setInitialValues = () => {
   const { giveawayContainer } = getElements();
 
-  lastDate = new Date(2025, 6, 29, 17, 30, 0);
+  lastDate = new Date(2025, 6, 29, 24, 9, 0);
 
   const dayName = weekdays[lastDate.getDay()];
   const monthName = months[lastDate.getMonth()];
+  const dayNumber = formatZero(lastDate.getDate());
+  const yearNumber = lastDate.getFullYear();
+  const hoursNumber = formatZero(lastDate.getHours());
+  const minutesNumber = formatZero(lastDate.getMinutes());
 
-  giveawayContainer.textContent = `Giveaway Ends On ${dayName}, ${lastDate.getDate()} ${monthName} ${lastDate.getFullYear()} ${lastDate.getHours()}:${lastDate.getMinutes()}am`;
+  const time = parseInt(hoursNumber) <= 12 ? "am" : "pm";
+
+  giveawayContainer.textContent = `Giveaway Ends On ${dayName}, ${dayNumber} ${monthName} ${yearNumber} ${hoursNumber}:${minutesNumber}${time}`;
 
   if (intervalGetTimeLeft) clearTimeout(intervalGetTimeLeft);
   intervalGetTimeLeft = setInterval(getTimeLeft, 1000);
