@@ -33,7 +33,6 @@ I made a web page that allows you to see a countdown, it can be very useful for 
 "@testing-library/user-event": "^14.5.2"
 "jest": "^29.7.0"
 "jest-environment-jsdom": "^29.7.0"
-"jest-fixed-jsdom": "^0.0.9"
 "ts-jest": "^29.2.5"
 "typescript": "^5.2.2"
 "vite": "^5.1.4"
