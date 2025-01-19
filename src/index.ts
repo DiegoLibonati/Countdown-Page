@@ -3,7 +3,7 @@ import { formatZero } from "./helpers/formatZero";
 
 import { weekdays, months } from "./constants/constants";
 
-import "./styles.css";
+import "./index.css";
 
 const oneDay: number = 24 * 60 * 60 * 1000;
 const oneHour: number = 60 * 60 * 1000;
@@ -24,7 +24,7 @@ const getTimeLeft = (): void => {
     clearInterval(intervalGetTimeLeft);
 
     const p: HTMLParagraphElement = document.createElement("p");
-    p.setAttribute("class", "text-[#CCC3F6] w-full text-center");
+    p.setAttribute("class", "text-secondary w-full text-center");
     p.innerHTML = "The time to claim the offer has expired";
     countdownOverContainer.innerHTML = "";
     countdownOverContainer.append(p);
