@@ -22,7 +22,7 @@ I made a web page that allows you to see a countdown, it can be very useful for 
 #### Dependencies
 
 ```
-"@types/jest": "^29.5.14"
+There are no depedencies.
 ```
 
 #### devDependencies
@@ -31,14 +31,15 @@ I made a web page that allows you to see a countdown, it can be very useful for 
 "@testing-library/dom": "^10.4.0"
 "@testing-library/jest-dom": "^6.6.3"
 "@testing-library/user-event": "^14.5.2"
+"@types/jest": "^29.5.14"
+"autoprefixer": "^10.4.16"
 "jest": "^29.7.0"
 "jest-environment-jsdom": "^29.7.0"
+"postcss": "^8.4.33"
+"tailwindcss": "^3.4.1"
 "ts-jest": "^29.2.5"
 "typescript": "^5.2.2"
 "vite": "^5.1.4"
-"autoprefixer": "^10.4.16"
-"postcss": "^8.4.33"
-"tailwindcss": "^3.4.1"
 ```
 
 ## Portfolio Link

@@ -48,7 +48,7 @@ const getTimeLeft = (): void => {
 const setInitialValues = () => {
   const { giveawayContainer } = getElements();
 
-  lastDate = new Date(2025, 6, 29, 24, 9, 0);
+  lastDate = new Date(2100, 6, 29, 24, 9, 0);
 
   const dayName = weekdays[lastDate.getDay()];
   const monthName = months[lastDate.getMonth()];
