@@ -1,9 +1,7 @@
-import { getElements } from "./helpers/getElements";
-import { formatZero } from "./helpers/formatZero";
+import { getElements } from "@src/helpers/getElements";
+import { formatZero } from "@src/helpers/formatZero";
 
-import { weekdays, months } from "./constants/constants";
-
-import "./index.css";
+import { weekdays, months } from "@src/constants/constants";
 
 const oneDay: number = 24 * 60 * 60 * 1000;
 const oneHour: number = 60 * 60 * 1000;

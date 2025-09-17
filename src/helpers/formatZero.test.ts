@@ -1,4 +1,4 @@
-import { formatZero } from "./formatZero";
+import { formatZero } from "@src/helpers/formatZero";
 
 describe("formatZero.ts", () => {
   describe("General Tests.", () => {
