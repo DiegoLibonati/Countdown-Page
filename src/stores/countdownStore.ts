@@ -4,7 +4,7 @@ import { months, weekdays } from "@src/constants/vars";
 
 import { formatZero } from "@src/helpers/formatZero";
 
-import { Store } from "@src/stores/store";
+import { Store } from "@src/core/store";
 
 export class CountdownStore extends Store<CountdownState> {
   constructor(initialState: CountdownState) {
