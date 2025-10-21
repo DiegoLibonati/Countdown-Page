@@ -25,7 +25,7 @@ export const Card = ({ title }: CardProps): HTMLDivElement => {
 
   divRoot.innerHTML = `
     <img
-        src="${assets.pngs.cell}"
+        src="${assets.images.cell}"
         alt="iphone"
         class="absolute -top-24 -right-6 z-20 h-auto w-24 object-cover"
     />

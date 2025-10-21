@@ -1,7 +1,7 @@
-import CellPng from "@src/assets/pngs/cell.png";
+import CellPng from "@src/assets/images/cell.png";
 
 const assets = {
-  pngs: {
+  images: {
     cell: CellPng,
   },
 };

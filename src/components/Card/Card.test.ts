@@ -37,7 +37,7 @@ jest.mock("@src/stores/countdownStore", () => ({
 jest.mock("@src/assets/export", () => ({
   __esModule: true,
   default: {
-    pngs: {
+    images: {
       cell: "mock-cell-image.png",
     },
   },
