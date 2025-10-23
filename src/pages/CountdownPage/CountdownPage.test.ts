@@ -63,7 +63,9 @@ describe("CountdownPage.ts", () => {
       const { container } = renderComponent();
 
       expect(container).toBeInstanceOf(HTMLElement);
-      expect(container.querySelector("#card-wrapper")).toBeInTheDocument();
+      expect(
+        container.querySelector<HTMLElement>("#card-wrapper")
+      ).toBeInTheDocument();
     });
 
     test("It should have correct styling classes", () => {
@@ -77,8 +79,8 @@ describe("CountdownPage.ts", () => {
     test("It should render Card component", () => {
       const { container } = renderComponent();
 
-      const cardWrapper = container.querySelector("#card-wrapper");
-      const card = cardWrapper?.querySelector("div");
+      const cardWrapper = container.querySelector<HTMLElement>("#card-wrapper");
+      const card = cardWrapper?.querySelector<HTMLDivElement>("div");
 
       expect(card).toBeInTheDocument();
       expect(card?.className).toContain("flex");
@@ -87,7 +89,7 @@ describe("CountdownPage.ts", () => {
     test("It should render card with correct title", () => {
       const { container } = renderComponent();
 
-      const heading = container.querySelector("h2");
+      const heading = container.querySelector<HTMLHeadingElement>("h2");
 
       expect(heading?.textContent).toBe("OLD IPHONE GIVEAWAY");
     });

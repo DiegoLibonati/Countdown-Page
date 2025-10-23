@@ -63,7 +63,7 @@ describe("Countdown.ts", () => {
     test("It should render count correctly", () => {
       const { container } = renderComponent(props.id, props.count, props.title);
 
-      const heading = container.querySelector("h4");
+      const heading = container.querySelector<HTMLHeadingElement>("h4");
 
       expect(heading).toBeInTheDocument();
       expect(heading?.textContent?.trim()).toBe(props.count.toString());
@@ -72,7 +72,7 @@ describe("Countdown.ts", () => {
     test("It should render title correctly", () => {
       const { container } = renderComponent(props.id, props.count, props.title);
 
-      const span = container.querySelector("span");
+      const span = container.querySelector<HTMLSpanElement>("span");
 
       expect(span).toBeInTheDocument();
       expect(span?.textContent).toBe(props.title);
@@ -81,7 +81,7 @@ describe("Countdown.ts", () => {
     test("It should have correct styling for count heading", () => {
       const { container } = renderComponent(props.id, props.count, props.title);
 
-      const heading = container.querySelector("h4");
+      const heading = container.querySelector<HTMLHeadingElement>("h4");
 
       expect(heading?.className).toContain("bg-primary");
       expect(heading?.className).toContain("bg-opacity-75");
@@ -93,7 +93,7 @@ describe("Countdown.ts", () => {
     test("It should have correct styling for title span", () => {
       const { container } = renderComponent(props.id, props.count, props.title);
 
-      const span = container.querySelector("span");
+      const span = container.querySelector<HTMLSpanElement>("span");
 
       expect(span?.className).toContain("text-secondary");
     });
@@ -103,7 +103,7 @@ describe("Countdown.ts", () => {
     test("It should handle zero count", () => {
       const { container } = renderComponent("countdown-zero", 0, "Zero Days");
 
-      const heading = container.querySelector("h4");
+      const heading = container.querySelector<HTMLHeadingElement>("h4");
 
       expect(heading?.textContent?.trim()).toBe("0");
     });
@@ -115,7 +115,7 @@ describe("Countdown.ts", () => {
         "Past Due"
       );
 
-      const heading = container.querySelector("h4");
+      const heading = container.querySelector<HTMLHeadingElement>("h4");
 
       expect(heading?.textContent?.trim()).toBe("-5");
     });
@@ -127,7 +127,7 @@ describe("Countdown.ts", () => {
         "Many Days"
       );
 
-      const heading = container.querySelector("h4");
+      const heading = container.querySelector<HTMLHeadingElement>("h4");
 
       expect(heading?.textContent?.trim()).toBe("9999");
     });
@@ -135,7 +135,7 @@ describe("Countdown.ts", () => {
     test("It should handle empty title", () => {
       const { container } = renderComponent("countdown-empty", 10, "");
 
-      const span = container.querySelector("span");
+      const span = container.querySelector<HTMLHeadingElement>("span");
 
       expect(span?.textContent).toBe("");
     });

@@ -12,8 +12,8 @@ export const CountdownPage = (): HTMLElement => {
   main.className = "h-screen w-screen bg-background";
 
   main.innerHTML = `
-        <section class="flex items-center justify-center w-full h-full" id="card-wrapper">
-        </section>
+      <section class="flex items-center justify-center w-full h-full" id="card-wrapper">
+      </section>
     `;
 
   const cardWrapper = main.querySelector<HTMLElement>("#card-wrapper");

@@ -71,16 +71,24 @@ describe("Card.ts", () => {
       const { container } = renderComponent("iPhone 14 Pro Giveaway");
 
       expect(container).toBeInstanceOf(HTMLDivElement);
-      expect(container.querySelector("img")).toBeInTheDocument();
-      expect(container.querySelector("h2")).toBeInTheDocument();
-      expect(container.querySelector("h4")).toBeInTheDocument();
-      expect(container.querySelector("#countdowns")).toBeInTheDocument();
+      expect(
+        container.querySelector<HTMLImageElement>("img")
+      ).toBeInTheDocument();
+      expect(
+        container.querySelector<HTMLHeadingElement>("h2")
+      ).toBeInTheDocument();
+      expect(
+        container.querySelector<HTMLHeadingElement>("h4")
+      ).toBeInTheDocument();
+      expect(
+        container.querySelector<HTMLDivElement>("#countdowns")
+      ).toBeInTheDocument();
     });
 
     test("It should render title correctly", () => {
       const { container } = renderComponent("iPhone 14 Pro Giveaway");
 
-      const heading = container.querySelector("h2");
+      const heading = container.querySelector<HTMLHeadingElement>("h2");
 
       expect(heading?.textContent).toBe("iPhone 14 Pro Giveaway");
     });
@@ -88,7 +96,7 @@ describe("Card.ts", () => {
     test("It should render date information correctly", () => {
       const { container } = renderComponent("Test Giveaway");
 
-      const subheading = container.querySelector("h4");
+      const subheading = container.querySelector<HTMLHeadingElement>("h4");
 
       expect(subheading?.textContent).toContain("Monday");
       expect(subheading?.textContent).toContain("25");
@@ -100,7 +108,7 @@ describe("Card.ts", () => {
     test("It should render cell phone image", () => {
       const { container } = renderComponent("Test Giveaway");
 
-      const img = container.querySelector("img");
+      const img = container.querySelector<HTMLImageElement>("img");
 
       expect(img?.src).toContain("mock-cell-image.png");
       expect(img?.alt).toBe("iphone");
@@ -126,13 +134,21 @@ describe("Card.ts", () => {
 
       const { container } = renderComponent("Test Giveaway");
 
-      const countdowns = container.querySelector("#countdowns");
+      const countdowns = container.querySelector<HTMLDivElement>("#countdowns");
 
       expect(countdowns?.children.length).toBe(4);
-      expect(container.querySelector("#days")).toBeInTheDocument();
-      expect(container.querySelector("#hours")).toBeInTheDocument();
-      expect(container.querySelector("#mins")).toBeInTheDocument();
-      expect(container.querySelector("#secs")).toBeInTheDocument();
+      expect(
+        container.querySelector<HTMLDivElement>("#days")
+      ).toBeInTheDocument();
+      expect(
+        container.querySelector<HTMLDivElement>("#hours")
+      ).toBeInTheDocument();
+      expect(
+        container.querySelector<HTMLDivElement>("#mins")
+      ).toBeInTheDocument();
+      expect(
+        container.querySelector<HTMLDivElement>("#secs")
+      ).toBeInTheDocument();
     });
 
     test("It should calculate days correctly", () => {
@@ -143,7 +159,7 @@ describe("Card.ts", () => {
 
       const { container } = renderComponent("Test Giveaway");
 
-      const days = container.querySelector("#days h4");
+      const days = container.querySelector<HTMLHeadingElement>("#days h4");
 
       expect(days?.textContent?.trim()).toBe("2");
     });
@@ -156,7 +172,7 @@ describe("Card.ts", () => {
 
       const { container } = renderComponent("Test Giveaway");
 
-      const hours = container.querySelector("#hours h4");
+      const hours = container.querySelector<HTMLHeadingElement>("#hours h4");
 
       expect(hours?.textContent?.trim()).toBe("2");
     });
@@ -172,7 +188,7 @@ describe("Card.ts", () => {
 
       const { container } = renderComponent("Test Giveaway");
 
-      const countdowns = container.querySelector("#countdowns");
+      const countdowns = container.querySelector<HTMLDivElement>("#countdowns");
 
       expect(countdowns?.textContent).toContain(
         "The time to claim the offer has expired"
@@ -188,7 +204,7 @@ describe("Card.ts", () => {
 
       const { container } = renderComponent("Test Giveaway");
 
-      const countdowns = container.querySelector("#countdowns");
+      const countdowns = container.querySelector<HTMLDivElement>("#countdowns");
 
       expect(countdowns?.textContent).toContain(
         "The time to claim the offer has expired"
@@ -211,7 +227,7 @@ describe("Card.ts", () => {
     test("It should handle empty title", () => {
       const { container } = renderComponent("");
 
-      const heading = container.querySelector("h2");
+      const heading = container.querySelector<HTMLHeadingElement>("h2");
 
       expect(heading?.textContent).toBe("");
     });
@@ -229,7 +245,7 @@ describe("Card.ts", () => {
 
       const { container } = renderComponent("Test");
 
-      const subheading = container.querySelector("h4");
+      const subheading = container.querySelector<HTMLHeadingElement>("h4");
 
       expect(subheading?.textContent).toContain("10:05AM");
     });
