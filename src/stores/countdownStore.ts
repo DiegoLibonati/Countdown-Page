@@ -1,21 +1,22 @@
-import { CountdownState } from "@src/entities/states";
+import type { CountdownState } from "@/types/states";
+import type { ParsedDate } from "@/types/app";
 
-import { months, weekdays } from "@src/constants/vars";
+import { months, weekdays } from "@/constants/vars";
 
-import { formatZero } from "@src/helpers/formatZero";
+import { formatZero } from "@/helpers/formatZero";
 
-import { Store } from "@src/core/store";
+import { Store } from "@/core/store";
 
 export class CountdownStore extends Store<CountdownState> {
-  constructor(initialState: CountdownState) {
-    super(initialState);
-  }
+  // constructor(initialState: CountdownState) {
+  //   super(initialState);
+  // }
 
-  public getLastDateParsed(): Record<string, string | number> {
+  public getLastDateParsed(): ParsedDate {
     const { lastDate } = this.getState();
 
-    const dayName = weekdays[lastDate.getDay()];
-    const monthName = months[lastDate.getMonth()];
+    const dayName = weekdays[lastDate.getDay()] ?? "";
+    const monthName = months[lastDate.getMonth()] ?? "";
     const dayNumber = formatZero(lastDate.getDate());
     const yearNumber = lastDate.getFullYear();
     const hoursNumber = formatZero(lastDate.getHours());
@@ -43,7 +44,7 @@ export class CountdownStore extends Store<CountdownState> {
     this.setState({ timeleft: leftTime });
   }
 
-  public setInterval(interval: NodeJS.Timeout): void {
+  public setInterval(interval: number): void {
     this.setState({ intervalGetTimeLeft: interval });
   }
 }

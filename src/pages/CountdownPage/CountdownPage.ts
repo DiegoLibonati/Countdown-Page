@@ -1,14 +1,19 @@
-import { Card } from "@src/components/Card/Card";
-import { countdownStore } from "@src/stores/countdownStore";
+import type { Page } from "@/types/pages";
 
-export const CountdownPage = (): HTMLElement => {
+import { Card } from "@/components/Card/Card";
+
+import { countdownStore } from "@/stores/countdownStore";
+
+export const CountdownPage = (): Page => {
   const { intervalGetTimeLeft } = countdownStore.getState();
 
   if (intervalGetTimeLeft) clearTimeout(intervalGetTimeLeft);
-  const interval = setInterval(() => countdownStore.setTimeLeft(), 1000);
+  const interval = setInterval(() => {
+    countdownStore.setTimeLeft();
+  }, 1000);
   countdownStore.setInterval(interval);
 
-  const main = document.createElement("main");
+  const main = document.createElement("main") as Page;
   main.className = "h-screen w-screen bg-background";
 
   main.innerHTML = `
@@ -21,6 +26,10 @@ export const CountdownPage = (): HTMLElement => {
   const card = Card({ title: "OLD IPHONE GIVEAWAY" });
 
   cardWrapper?.append(card);
+
+  main.cleanup = (): void => {
+    card.cleanup?.();
+  };
 
   return main;
 };

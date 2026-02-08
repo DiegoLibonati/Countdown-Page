@@ -1,14 +1,16 @@
-import { CardProps } from "@src/entities/props";
+import type { CardProps } from "@/types/props";
+import type { CardComponent } from "@/types/components";
 
-import { Countdown } from "@src/components/Countdown/Countdown";
+import { Countdown } from "@/components/Countdown/Countdown";
 
-import { oneDay, oneHour, oneMin, oneSec } from "@src/constants/vars";
+import { oneDay, oneHour, oneMin, oneSec } from "@/constants/vars";
 
-import { countdownStore } from "@src/stores/countdownStore";
+import { countdownStore } from "@/stores/countdownStore";
 
-import assets from "@src/assets/export";
+import assets from "@/assets/export";
+import { formatZero } from "@/helpers/formatZero";
 
-export const Card = ({ title }: CardProps): HTMLDivElement => {
+export const Card = ({ title }: CardProps): CardComponent => {
   const {
     dayName,
     dayNumber,
@@ -19,7 +21,7 @@ export const Card = ({ title }: CardProps): HTMLDivElement => {
     time,
   } = countdownStore.getLastDateParsed();
 
-  const divRoot = document.createElement("div");
+  const divRoot = document.createElement("div") as CardComponent;
   divRoot.className =
     "relative flex items-center justify-center flex-col w-[20rem] h-auto rounded-lg shadow-md";
 
@@ -41,26 +43,31 @@ export const Card = ({ title }: CardProps): HTMLDivElement => {
     </div>
   `;
 
-  const renderCountdowns = () => {
-    const { timeleft, intervalGetTimeLeft } = countdownStore.getState();
+  const renderCountdowns = (): void => {
+    const timeleft = countdownStore.get("timeleft");
+    const intervalGetTimeLeft = countdownStore.get("intervalGetTimeLeft");
 
     const countdowns = divRoot.querySelector<HTMLDivElement>("#countdowns");
     countdowns?.replaceChildren();
 
     if (timeleft <= 0) {
-      clearInterval(intervalGetTimeLeft!);
+      if (intervalGetTimeLeft) {
+        clearInterval(intervalGetTimeLeft);
+      }
 
-      countdowns!.innerHTML = `
-        <p class="text-secondary w-full text-center">The time to claim the offer has expired</p>
-      `;
+      if (countdowns) {
+        countdowns.innerHTML = `
+          <p class="text-secondary w-full text-center">The time to claim the offer has expired</p>
+        `;
+      }
 
       return;
     }
 
     const leftDays: number = Math.floor(timeleft / oneDay);
-    const leftHours: number = Math.floor((timeleft % oneDay) / oneHour);
-    const leftMins: number = Math.floor((timeleft % oneHour) / oneMin);
-    const leftSecs: number = Math.floor((timeleft % oneMin) / oneSec);
+    const leftHours = formatZero(Math.floor((timeleft % oneDay) / oneHour));
+    const leftMins = formatZero(Math.floor((timeleft % oneHour) / oneMin));
+    const leftSecs = formatZero(Math.floor((timeleft % oneMin) / oneSec));
 
     const countdownDays = Countdown({
       id: "days",
@@ -69,17 +76,17 @@ export const Card = ({ title }: CardProps): HTMLDivElement => {
     });
     const countdownHours = Countdown({
       id: "hours",
-      count: String(leftHours),
+      count: leftHours,
       title: "Hours",
     });
     const countdownMins = Countdown({
       id: "mins",
-      count: String(leftMins),
+      count: leftMins,
       title: "Mins",
     });
     const countdownSecs = Countdown({
       id: "secs",
-      count: String(leftSecs),
+      count: leftSecs,
       title: "Secs",
     });
 
@@ -93,7 +100,14 @@ export const Card = ({ title }: CardProps): HTMLDivElement => {
 
   renderCountdowns();
 
-  countdownStore.subscribe("timeleft", renderCountdowns);
+  const countdownUnsubscribe = countdownStore.subscribe(
+    "timeleft",
+    renderCountdowns
+  );
+
+  divRoot.cleanup = (): void => {
+    countdownUnsubscribe();
+  };
 
   return divRoot;
 };

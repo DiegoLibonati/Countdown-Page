@@ -1,10 +1,11 @@
-import { CountdownProps } from "@src/entities/props";
+import type { CountdownProps } from "@/types/props";
+import type { CountdownComponent } from "@/types/components";
 
 export const Countdown = ({
   id,
   count,
   title,
-}: CountdownProps): HTMLDivElement => {
+}: CountdownProps): CountdownComponent => {
   const divRoot = document.createElement("div");
   divRoot.className = "flex items-center justify-center flex-col";
   divRoot.id = id;

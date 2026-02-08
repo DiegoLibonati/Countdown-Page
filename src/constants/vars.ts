@@ -26,4 +26,4 @@ export const weekdays: string[] = [
 export const oneDay: number = 24 * 60 * 60 * 1000;
 export const oneHour: number = 60 * 60 * 1000;
 export const oneMin: number = 60 * 1000;
-export const oneSec: number = 1000;
+export const oneSec = 1000;

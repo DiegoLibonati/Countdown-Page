@@ -1,4 +1,4 @@
-import CellPng from "@src/assets/images/cell.png";
+import CellPng from "@/assets/images/cell.png";
 
 const assets = {
   images: {
