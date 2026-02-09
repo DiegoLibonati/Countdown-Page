@@ -7,7 +7,8 @@ import { countdownStore } from "@/stores/countdownStore";
 export const CountdownPage = (): Page => {
   const { intervalGetTimeLeft } = countdownStore.getState();
 
-  if (intervalGetTimeLeft) clearTimeout(intervalGetTimeLeft);
+  if (intervalGetTimeLeft) clearInterval(intervalGetTimeLeft);
+
   const interval = setInterval(() => {
     countdownStore.setTimeLeft();
   }, 1000);
@@ -29,6 +30,7 @@ export const CountdownPage = (): Page => {
 
   main.cleanup = (): void => {
     card.cleanup?.();
+    countdownStore.cleanup();
   };
 
   return main;

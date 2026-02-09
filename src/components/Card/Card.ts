@@ -47,20 +47,16 @@ export const Card = ({ title }: CardProps): CardComponent => {
     const timeleft = countdownStore.get("timeleft");
     const intervalGetTimeLeft = countdownStore.get("intervalGetTimeLeft");
 
-    const countdowns = divRoot.querySelector<HTMLDivElement>("#countdowns");
-    countdowns?.replaceChildren();
+    const countdowns = divRoot.querySelector<HTMLDivElement>("#countdowns")!;
+    countdowns.replaceChildren();
+
+    if (timeleft <= 0 && intervalGetTimeLeft)
+      clearInterval(intervalGetTimeLeft);
 
     if (timeleft <= 0) {
-      if (intervalGetTimeLeft) {
-        clearInterval(intervalGetTimeLeft);
-      }
-
-      if (countdowns) {
-        countdowns.innerHTML = `
+      countdowns.innerHTML = `
           <p class="text-secondary w-full text-center">The time to claim the offer has expired</p>
         `;
-      }
-
       return;
     }
 
@@ -90,7 +86,7 @@ export const Card = ({ title }: CardProps): CardComponent => {
       title: "Secs",
     });
 
-    countdowns?.append(
+    countdowns.append(
       countdownDays,
       countdownHours,
       countdownMins,

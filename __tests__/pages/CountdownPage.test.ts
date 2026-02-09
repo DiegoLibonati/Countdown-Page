@@ -13,6 +13,7 @@ jest.mock("@/stores/countdownStore", () => ({
     getState: jest.fn(),
     setTimeLeft: jest.fn(),
     setInterval: jest.fn(),
+    cleanup: jest.fn(),
     getLastDateParsed: jest.fn(),
     get: jest.fn(),
     subscribe: jest.fn(),
@@ -168,11 +169,11 @@ describe("CountdownPage", () => {
         intervalGetTimeLeft: mockExistingInterval,
       });
 
-      const clearTimeoutSpy = jest.spyOn(global, "clearTimeout");
+      const clearIntervalSpy = jest.spyOn(global, "clearInterval");
 
       renderPage();
 
-      expect(clearTimeoutSpy).toHaveBeenCalledWith(mockExistingInterval);
+      expect(clearIntervalSpy).toHaveBeenCalledWith(mockExistingInterval);
     });
 
     it("should not clear interval if none exists", () => {
@@ -181,11 +182,11 @@ describe("CountdownPage", () => {
         intervalGetTimeLeft: null,
       });
 
-      const clearTimeoutSpy = jest.spyOn(global, "clearTimeout");
+      const clearIntervalSpy = jest.spyOn(global, "clearInterval");
 
       renderPage();
 
-      expect(clearTimeoutSpy).not.toHaveBeenCalled();
+      expect(clearIntervalSpy).not.toHaveBeenCalled();
     });
   });
 
@@ -221,6 +222,7 @@ describe("CountdownPage", () => {
       container.cleanup?.();
 
       expect(unsubscribeMock).toHaveBeenCalled();
+      expect(countdownStore.cleanup).toHaveBeenCalled();
     });
 
     it("should handle cleanup when Card cleanup is undefined", () => {
@@ -283,11 +285,11 @@ describe("CountdownPage", () => {
         intervalGetTimeLeft: firstInterval,
       });
 
-      const clearTimeoutSpy = jest.spyOn(global, "clearTimeout");
+      const clearIntervalSpy = jest.spyOn(global, "clearInterval");
 
       renderPage();
 
-      expect(clearTimeoutSpy).toHaveBeenCalledWith(firstInterval);
+      expect(clearIntervalSpy).toHaveBeenCalledWith(firstInterval);
     });
 
     it("should create new interval on each render", () => {
@@ -325,11 +327,11 @@ describe("CountdownPage", () => {
           intervalGetTimeLeft: intervalValue,
         });
 
-        const clearTimeoutSpy = jest.spyOn(global, "clearTimeout");
+        const clearIntervalSpy = jest.spyOn(global, "clearInterval");
 
         renderPage();
 
-        expect(clearTimeoutSpy).toHaveBeenCalledWith(intervalValue);
+        expect(clearIntervalSpy).toHaveBeenCalledWith(intervalValue);
       });
     });
   });

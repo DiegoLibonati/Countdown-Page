@@ -47,6 +47,15 @@ export class CountdownStore extends Store<CountdownState> {
   public setInterval(interval: number): void {
     this.setState({ intervalGetTimeLeft: interval });
   }
+
+  public cleanup(): void {
+    const { intervalGetTimeLeft } = this.getState();
+
+    if (intervalGetTimeLeft) {
+      clearInterval(intervalGetTimeLeft);
+      this.setState({ intervalGetTimeLeft: null });
+    }
+  }
 }
 
 export const countdownStore = new CountdownStore({

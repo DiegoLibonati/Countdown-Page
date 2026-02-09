@@ -65,7 +65,7 @@ export default [
         { prefer: "type-imports" },
       ],
       "@typescript-eslint/consistent-type-definitions": ["error", "interface"],
-      "@typescript-eslint/no-non-null-assertion": "warn",
+      "@typescript-eslint/no-non-null-assertion": "off",
 
       // General
       "no-console": "warn",
