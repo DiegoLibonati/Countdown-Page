@@ -82,7 +82,7 @@ describe("Countdown", () => {
         title: "Mins",
       });
 
-      const span = container.querySelector("span");
+      const span = container.querySelector<HTMLSpanElement>("span");
 
       expect(span).toBeInTheDocument();
       expect(span).toHaveTextContent("Mins");
@@ -177,7 +177,7 @@ describe("Countdown", () => {
         title: "Test",
       });
 
-      const heading = container.querySelector("h4");
+      const heading = container.querySelector<HTMLHeadingElement>("h4");
 
       expect(heading).toHaveTextContent("");
     });
@@ -189,7 +189,7 @@ describe("Countdown", () => {
         title: "",
       });
 
-      const span = container.querySelector("span");
+      const span = container.querySelector<HTMLSpanElement>("span");
 
       expect(span).toHaveTextContent("");
     });
@@ -268,11 +268,19 @@ describe("Countdown", () => {
         title: "Secs",
       });
 
-      expect(countdown1.querySelector("h4")).toHaveTextContent("30");
-      expect(countdown1.querySelector("span")).toHaveTextContent("Mins");
+      expect(
+        countdown1.querySelector<HTMLHeadingElement>("h4")
+      ).toHaveTextContent("30");
+      expect(
+        countdown1.querySelector<HTMLSpanElement>("span")
+      ).toHaveTextContent("Mins");
 
-      expect(countdown2.querySelector("h4")).toHaveTextContent("45");
-      expect(countdown2.querySelector("span")).toHaveTextContent("Secs");
+      expect(
+        countdown2.querySelector<HTMLHeadingElement>("h4")
+      ).toHaveTextContent("45");
+      expect(
+        countdown2.querySelector<HTMLSpanElement>("span")
+      ).toHaveTextContent("Secs");
     });
   });
 
@@ -284,7 +292,7 @@ describe("Countdown", () => {
         title: "Test",
       });
 
-      const heading = container.querySelector("h4");
+      const heading = container.querySelector<HTMLHeadingElement>("h4");
 
       expect(heading).toBeInTheDocument();
       expect(heading?.parentElement).toBe(container);
@@ -297,7 +305,7 @@ describe("Countdown", () => {
         title: "Test",
       });
 
-      const span = container.querySelector("span");
+      const span = container.querySelector<HTMLSpanElement>("span");
 
       expect(span).toBeInTheDocument();
       expect(span?.parentElement).toBe(container);

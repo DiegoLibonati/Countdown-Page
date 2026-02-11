@@ -7,8 +7,9 @@ import { oneDay, oneHour, oneMin, oneSec } from "@/constants/vars";
 
 import { countdownStore } from "@/stores/countdownStore";
 
-import assets from "@/assets/export";
 import { formatZero } from "@/helpers/formatZero";
+
+import assets from "@/assets/export";
 
 export const Card = ({ title }: CardProps): CardComponent => {
   const {

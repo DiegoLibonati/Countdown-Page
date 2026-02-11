@@ -1,5 +1,6 @@
 import { screen } from "@testing-library/dom";
 
+import type { CardProps } from "@/types/props";
 import type { CardComponent } from "@/types/components";
 
 import { Card } from "@/components/Card/Card";
@@ -21,7 +22,8 @@ jest.doMock("@/assets/export", () => ({
   default: mockAssets,
 }));
 
-const renderComponent = (title: string): CardComponent => {
+const renderComponent = (props: CardProps): CardComponent => {
+  const { title } = props;
   const container = Card({ title });
   document.body.appendChild(container);
   return container;
@@ -55,14 +57,14 @@ describe("Card", () => {
 
   describe("Render", () => {
     it("should create a div element", () => {
-      const container = renderComponent("iPhone 14 Pro Giveaway");
+      const container = renderComponent({ title: "iPhone 14 Pro Giveaway" });
 
       expect(container).toBeInstanceOf(HTMLDivElement);
       expect(container.tagName).toBe("DIV");
     });
 
     it("should have correct styling classes", () => {
-      const container = renderComponent("Test Giveaway");
+      const container = renderComponent({ title: "Test Giveaway" });
 
       expect(container).toHaveClass(
         "relative",
@@ -76,7 +78,7 @@ describe("Card", () => {
     });
 
     it("should render title correctly", () => {
-      renderComponent("iPhone 14 Pro Giveaway");
+      renderComponent({ title: "iPhone 14 Pro Giveaway" });
 
       const heading = screen.getByRole("heading", {
         name: "iPhone 14 Pro Giveaway",
@@ -88,9 +90,9 @@ describe("Card", () => {
     });
 
     it("should render date information correctly", () => {
-      const container = renderComponent("Test Giveaway");
+      const container = renderComponent({ title: "Test Giveaway" });
 
-      const subheading = container.querySelector("h4");
+      const subheading = container.querySelector<HTMLHeadingElement>("h4");
 
       expect(subheading).toHaveTextContent(
         "Giveaway Ends On Monday, 25 December 2024 10:30AM"
@@ -99,7 +101,7 @@ describe("Card", () => {
     });
 
     it("should render cell phone image with correct attributes", () => {
-      renderComponent("Test Giveaway");
+      renderComponent({ title: "Test Giveaway" });
 
       const img = screen.getByRole("img", { name: "iphone" });
 
@@ -112,9 +114,9 @@ describe("Card", () => {
     });
 
     it("should render countdowns container", () => {
-      const container = renderComponent("Test Giveaway");
+      const container = renderComponent({ title: "Test Giveaway" });
 
-      const countdowns = container.querySelector("#countdowns");
+      const countdowns = container.querySelector<HTMLDivElement>("#countdowns");
 
       expect(countdowns).toBeInTheDocument();
       expect(countdowns).toHaveClass(
@@ -128,7 +130,7 @@ describe("Card", () => {
     });
 
     it("should handle empty title", () => {
-      renderComponent("");
+      renderComponent({ title: "" });
 
       const heading = screen.getByRole("heading", { level: 2 });
 
@@ -144,15 +146,23 @@ describe("Card", () => {
         return null;
       });
 
-      const container = renderComponent("Test Giveaway");
+      const container = renderComponent({ title: "Test Giveaway" });
 
-      const countdowns = container.querySelector("#countdowns");
+      const countdowns = container.querySelector<HTMLDivElement>("#countdowns");
 
       expect(countdowns?.children).toHaveLength(4);
-      expect(container.querySelector("#days")).toBeInTheDocument();
-      expect(container.querySelector("#hours")).toBeInTheDocument();
-      expect(container.querySelector("#mins")).toBeInTheDocument();
-      expect(container.querySelector("#secs")).toBeInTheDocument();
+      expect(
+        container.querySelector<HTMLDivElement>("#days")
+      ).toBeInTheDocument();
+      expect(
+        container.querySelector<HTMLDivElement>("#hours")
+      ).toBeInTheDocument();
+      expect(
+        container.querySelector<HTMLDivElement>("#mins")
+      ).toBeInTheDocument();
+      expect(
+        container.querySelector<HTMLDivElement>("#secs")
+      ).toBeInTheDocument();
     });
 
     it("should calculate days correctly", () => {
@@ -162,9 +172,9 @@ describe("Card", () => {
         return null;
       });
 
-      const container = renderComponent("Test Giveaway");
+      const container = renderComponent({ title: "Test Giveaway" });
 
-      const days = container.querySelector("#days h4");
+      const days = container.querySelector<HTMLHeadingElement>("#days h4");
 
       expect(days).toHaveTextContent("2");
     });
@@ -176,9 +186,9 @@ describe("Card", () => {
         return null;
       });
 
-      const container = renderComponent("Test Giveaway");
+      const container = renderComponent({ title: "Test Giveaway" });
 
-      const hours = container.querySelector("#hours h4");
+      const hours = container.querySelector<HTMLHeadingElement>("#hours h4");
 
       expect(hours).toHaveTextContent("02");
     });
@@ -190,9 +200,9 @@ describe("Card", () => {
         return null;
       });
 
-      const container = renderComponent("Test Giveaway");
+      const container = renderComponent({ title: "Test Giveaway" });
 
-      const mins = container.querySelector("#mins h4");
+      const mins = container.querySelector<HTMLHeadingElement>("#mins h4");
 
       expect(mins).toHaveTextContent("05");
     });
@@ -204,15 +214,15 @@ describe("Card", () => {
         return null;
       });
 
-      const container = renderComponent("Test Giveaway");
+      const container = renderComponent({ title: "Test Giveaway" });
 
-      const secs = container.querySelector("#secs h4");
+      const secs = container.querySelector<HTMLHeadingElement>("#secs h4");
 
       expect(secs).toHaveTextContent("09");
     });
 
     it("should display countdown labels correctly", () => {
-      renderComponent("Test Giveaway");
+      renderComponent({ title: "Test Giveaway" });
 
       expect(screen.getByText("Days")).toBeInTheDocument();
       expect(screen.getByText("Hours")).toBeInTheDocument();
@@ -232,9 +242,9 @@ describe("Card", () => {
 
       const clearIntervalSpy = jest.spyOn(global, "clearInterval");
 
-      const container = renderComponent("Test Giveaway");
+      const container = renderComponent({ title: "Test Giveaway" });
 
-      const countdowns = container.querySelector("#countdowns");
+      const countdowns = container.querySelector<HTMLDivElement>("#countdowns");
 
       expect(countdowns).toHaveTextContent(
         "The time to claim the offer has expired"
@@ -249,9 +259,9 @@ describe("Card", () => {
         return null;
       });
 
-      const container = renderComponent("Test Giveaway");
+      const container = renderComponent({ title: "Test Giveaway" });
 
-      const countdowns = container.querySelector("#countdowns");
+      const countdowns = container.querySelector<HTMLDivElement>("#countdowns");
 
       expect(countdowns).toHaveTextContent(
         "The time to claim the offer has expired"
@@ -267,7 +277,7 @@ describe("Card", () => {
 
       const clearIntervalSpy = jest.spyOn(global, "clearInterval");
 
-      renderComponent("Test Giveaway");
+      renderComponent({ title: "Test Giveaway" });
 
       expect(clearIntervalSpy).not.toHaveBeenCalled();
     });
@@ -279,9 +289,9 @@ describe("Card", () => {
         return null;
       });
 
-      const container = renderComponent("Test Giveaway");
+      const container = renderComponent({ title: "Test Giveaway" });
 
-      const countdowns = container.querySelector("#countdowns");
+      const countdowns = container.querySelector<HTMLDivElement>("#countdowns");
       const countdownComponents = countdowns?.querySelectorAll(
         "#days, #hours, #mins, #secs"
       );
@@ -292,7 +302,7 @@ describe("Card", () => {
 
   describe("Store Subscription", () => {
     it("should subscribe to timeleft changes", () => {
-      renderComponent("Test Giveaway");
+      renderComponent({ title: "Test Giveaway" });
 
       expect(countdownStore.subscribe).toHaveBeenCalledWith(
         "timeleft",
@@ -310,9 +320,11 @@ describe("Card", () => {
         }
       );
 
-      const container = renderComponent("Test Giveaway");
+      const container = renderComponent({ title: "Test Giveaway" });
 
-      expect(container.querySelector("#countdowns")?.children).toHaveLength(4);
+      expect(
+        container.querySelector<HTMLDivElement>("#countdowns")?.children
+      ).toHaveLength(4);
 
       (countdownStore.get as jest.Mock).mockImplementation((key: string) => {
         if (key === "timeleft") return 0;
@@ -322,15 +334,15 @@ describe("Card", () => {
 
       subscriptionCallback?.();
 
-      expect(container.querySelector("#countdowns")).toHaveTextContent(
-        "The time to claim the offer has expired"
-      );
+      expect(
+        container.querySelector<HTMLDivElement>("#countdowns")
+      ).toHaveTextContent("The time to claim the offer has expired");
     });
   });
 
   describe("Cleanup", () => {
     it("should have cleanup function", () => {
-      const container = renderComponent("Test Giveaway");
+      const container = renderComponent({ title: "Test Giveaway" });
 
       expect(typeof container.cleanup).toBe("function");
     });
@@ -339,7 +351,7 @@ describe("Card", () => {
       const unsubscribeMock = jest.fn();
       (countdownStore.subscribe as jest.Mock).mockReturnValue(unsubscribeMock);
 
-      const container = renderComponent("Test Giveaway");
+      const container = renderComponent({ title: "Test Giveaway" });
 
       container.cleanup?.();
 
@@ -359,9 +371,9 @@ describe("Card", () => {
         time: "AM",
       });
 
-      const container = renderComponent("Test");
+      const container = renderComponent({ title: "Test" });
 
-      const subheading = container.querySelector("h4");
+      const subheading = container.querySelector<HTMLHeadingElement>("h4");
 
       expect(subheading).toHaveTextContent("10:05AM");
     });
@@ -373,17 +385,25 @@ describe("Card", () => {
         return null;
       });
 
-      const container = renderComponent("Test Giveaway");
+      const container = renderComponent({ title: "Test Giveaway" });
 
-      expect(container.querySelector("#days h4")).toHaveTextContent("1");
-      expect(container.querySelector("#hours h4")).toHaveTextContent("01");
-      expect(container.querySelector("#mins h4")).toHaveTextContent("01");
-      expect(container.querySelector("#secs h4")).toHaveTextContent("01");
+      expect(
+        container.querySelector<HTMLHeadingElement>("#days h4")
+      ).toHaveTextContent("1");
+      expect(
+        container.querySelector<HTMLHeadingElement>("#hours h4")
+      ).toHaveTextContent("01");
+      expect(
+        container.querySelector<HTMLHeadingElement>("#mins h4")
+      ).toHaveTextContent("01");
+      expect(
+        container.querySelector<HTMLHeadingElement>("#secs h4")
+      ).toHaveTextContent("01");
     });
 
     it("should replaceChildren before rendering new countdowns", () => {
-      const container = renderComponent("Test Giveaway");
-      const countdowns = container.querySelector("#countdowns");
+      const container = renderComponent({ title: "Test Giveaway" });
+      const countdowns = container.querySelector<HTMLDivElement>("#countdowns");
 
       const replaceChildrenSpy = jest.spyOn(countdowns!, "replaceChildren");
 

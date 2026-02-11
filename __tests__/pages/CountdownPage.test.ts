@@ -87,8 +87,8 @@ describe("CountdownPage", () => {
     it("should render section with card wrapper", () => {
       const container = renderPage();
 
-      const section = container.querySelector("section");
-      const cardWrapper = container.querySelector("#card-wrapper");
+      const section = container.querySelector<HTMLElement>("section");
+      const cardWrapper = container.querySelector<HTMLElement>("#card-wrapper");
 
       expect(section).toBeInTheDocument();
       expect(cardWrapper).toBeInTheDocument();
@@ -98,7 +98,7 @@ describe("CountdownPage", () => {
     it("should have correct section styling", () => {
       const container = renderPage();
 
-      const section = container.querySelector("section");
+      const section = container.querySelector<HTMLElement>("section");
 
       expect(section).toHaveClass(
         "flex",
@@ -123,8 +123,9 @@ describe("CountdownPage", () => {
     it("should append Card to card wrapper", () => {
       const container = renderPage();
 
-      const cardWrapper = container.querySelector("#card-wrapper");
-      const cardElement = cardWrapper?.querySelector(".relative");
+      const cardWrapper = container.querySelector<HTMLElement>("#card-wrapper");
+      const cardElement =
+        cardWrapper?.querySelector<HTMLDivElement>(".relative");
 
       expect(cardElement).toBeInTheDocument();
     });
@@ -237,7 +238,7 @@ describe("CountdownPage", () => {
       const container = renderPage();
 
       const main = screen.getByRole("main");
-      const section = container.querySelector("section");
+      const section = container.querySelector<HTMLElement>("section");
 
       expect(section?.parentElement).toBe(main);
     });
@@ -245,7 +246,7 @@ describe("CountdownPage", () => {
     it("should have card wrapper with correct id", () => {
       const container = renderPage();
 
-      const cardWrapper = container.querySelector("#card-wrapper");
+      const cardWrapper = container.querySelector<HTMLElement>("#card-wrapper");
 
       expect(cardWrapper).toBeInTheDocument();
       expect(cardWrapper?.id).toBe("card-wrapper");
