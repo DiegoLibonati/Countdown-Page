@@ -1,5 +1,5 @@
 export const mockAssets = {
   images: {
-    cell: "mock-file-path",
+    cell: "/images/cell.png",
   },
 };

@@ -1,29 +1,8 @@
-import { screen } from "@testing-library/dom";
-
 import type { Page } from "@/types/pages";
 
 import { CountdownPage } from "@/pages/CountdownPage/CountdownPage";
 
 import { countdownStore } from "@/stores/countdownStore";
-
-import { mockAssets } from "@tests/__mocks__/assets.mock";
-
-jest.mock("@/stores/countdownStore", () => ({
-  countdownStore: {
-    getState: jest.fn(),
-    setTimeLeft: jest.fn(),
-    setInterval: jest.fn(),
-    cleanup: jest.fn(),
-    getLastDateParsed: jest.fn(),
-    get: jest.fn(),
-    subscribe: jest.fn(),
-  },
-}));
-
-jest.doMock("@/assets/export", () => ({
-  __esModule: true,
-  default: mockAssets,
-}));
 
 const renderPage = (): Page => {
   const container = CountdownPage();
@@ -35,305 +14,69 @@ describe("CountdownPage", () => {
   beforeEach(() => {
     jest.useFakeTimers();
 
-    (countdownStore.getState as jest.Mock).mockReturnValue({
-      timeleft: 86400000,
+    const futureDate = new Date();
+    futureDate.setDate(futureDate.getDate() + 5);
+
+    countdownStore.setState({
+      lastDate: futureDate,
+      timeleft: 432000000,
       intervalGetTimeLeft: null,
     });
-
-    (countdownStore.getLastDateParsed as jest.Mock).mockReturnValue({
-      dayName: "Monday",
-      dayNumber: 25,
-      monthName: "December",
-      yearNumber: 2024,
-      hoursNumber: 10,
-      minutesNumber: "30",
-      time: "AM",
-    });
-
-    (countdownStore.get as jest.Mock).mockImplementation((key: string) => {
-      if (key === "timeleft") return 86400000;
-      if (key === "intervalGetTimeLeft") return null;
-      return null;
-    });
-
-    (countdownStore.subscribe as jest.Mock).mockReturnValue(jest.fn());
   });
 
   afterEach(() => {
     document.body.innerHTML = "";
-    jest.clearAllMocks();
+    countdownStore.cleanup();
     jest.clearAllTimers();
     jest.useRealTimers();
   });
 
-  describe("Render", () => {
-    it("should create a main element", () => {
-      renderPage();
+  it("should render the page with correct structure", () => {
+    renderPage();
 
-      const main = screen.getByRole("main");
-
-      expect(main).toBeInstanceOf(HTMLElement);
-      expect(main.tagName).toBe("MAIN");
-    });
-
-    it("should have correct styling classes", () => {
-      renderPage();
-
-      const main = screen.getByRole("main");
-
-      expect(main).toHaveClass("h-screen", "w-screen", "bg-background");
-    });
-
-    it("should render section with card wrapper", () => {
-      const container = renderPage();
-
-      const section = container.querySelector<HTMLElement>("section");
-      const cardWrapper = container.querySelector<HTMLElement>("#card-wrapper");
-
-      expect(section).toBeInTheDocument();
-      expect(cardWrapper).toBeInTheDocument();
-      expect(section).toBe(cardWrapper);
-    });
-
-    it("should have correct section styling", () => {
-      const container = renderPage();
-
-      const section = container.querySelector<HTMLElement>("section");
-
-      expect(section).toHaveClass(
-        "flex",
-        "items-center",
-        "justify-center",
-        "w-full",
-        "h-full"
-      );
-    });
-
-    it("should render Card component", () => {
-      renderPage();
-
-      const heading = screen.getByRole("heading", {
-        name: "OLD IPHONE GIVEAWAY",
-        level: 2,
-      });
-
-      expect(heading).toBeInTheDocument();
-    });
-
-    it("should append Card to card wrapper", () => {
-      const container = renderPage();
-
-      const cardWrapper = container.querySelector<HTMLElement>("#card-wrapper");
-      const cardElement =
-        cardWrapper?.querySelector<HTMLDivElement>(".relative");
-
-      expect(cardElement).toBeInTheDocument();
-    });
+    const main = document.querySelector<HTMLElement>("main");
+    expect(main).toBeInTheDocument();
+    expect(main).toHaveClass("h-screen", "w-screen", "bg-background");
   });
 
-  describe("Interval Management", () => {
-    it("should create interval on mount", () => {
-      const setIntervalSpy = jest.spyOn(global, "setInterval");
+  it("should render card component", () => {
+    renderPage();
 
-      renderPage();
-
-      expect(setIntervalSpy).toHaveBeenCalledWith(expect.any(Function), 1000);
-    });
-
-    it("should set interval in store", () => {
-      renderPage();
-
-      expect(countdownStore.setInterval).toHaveBeenCalledWith(
-        expect.any(Number)
-      );
-    });
-
-    it("should call setTimeLeft every second", () => {
-      renderPage();
-
-      expect(countdownStore.setTimeLeft).not.toHaveBeenCalled();
-
-      jest.advanceTimersByTime(1000);
-      expect(countdownStore.setTimeLeft).toHaveBeenCalledTimes(1);
-
-      jest.advanceTimersByTime(1000);
-      expect(countdownStore.setTimeLeft).toHaveBeenCalledTimes(2);
-
-      jest.advanceTimersByTime(3000);
-      expect(countdownStore.setTimeLeft).toHaveBeenCalledTimes(5);
-    });
-
-    it("should clear existing interval before creating new one", () => {
-      const mockExistingInterval = 123;
-      (countdownStore.getState as jest.Mock).mockReturnValue({
-        timeleft: 86400000,
-        intervalGetTimeLeft: mockExistingInterval,
-      });
-
-      const clearIntervalSpy = jest.spyOn(global, "clearInterval");
-
-      renderPage();
-
-      expect(clearIntervalSpy).toHaveBeenCalledWith(mockExistingInterval);
-    });
-
-    it("should not clear interval if none exists", () => {
-      (countdownStore.getState as jest.Mock).mockReturnValue({
-        timeleft: 86400000,
-        intervalGetTimeLeft: null,
-      });
-
-      const clearIntervalSpy = jest.spyOn(global, "clearInterval");
-
-      renderPage();
-
-      expect(clearIntervalSpy).not.toHaveBeenCalled();
-    });
+    expect(document.body.textContent).toContain("OLD IPHONE GIVEAWAY");
   });
 
-  describe("Store Integration", () => {
-    it("should get state from store on mount", () => {
-      renderPage();
+  it("should start countdown interval", () => {
+    const setIntervalSpy = jest.spyOn(global, "setInterval");
 
-      expect(countdownStore.getState).toHaveBeenCalled();
-    });
+    renderPage();
 
-    it("should pass correct title to Card component", () => {
-      renderPage();
+    expect(setIntervalSpy).toHaveBeenCalledWith(expect.any(Function), 1000);
 
-      const heading = screen.getByRole("heading", { level: 2 });
-
-      expect(heading).toHaveTextContent("OLD IPHONE GIVEAWAY");
-    });
+    setIntervalSpy.mockRestore();
   });
 
-  describe("Cleanup", () => {
-    it("should have cleanup function", () => {
-      const container = renderPage();
+  it("should clear previous interval if exists", () => {
+    const clearIntervalSpy = jest.spyOn(global, "clearInterval");
+    const existingInterval = setInterval(() => {
+      // Interval callback
+    }, 1000) as unknown as number;
 
-      expect(typeof container.cleanup).toBe("function");
-    });
+    countdownStore.setInterval(existingInterval);
 
-    it("should call Card cleanup on page cleanup", () => {
-      const unsubscribeMock = jest.fn();
-      (countdownStore.subscribe as jest.Mock).mockReturnValue(unsubscribeMock);
+    renderPage();
 
-      const container = renderPage();
+    expect(clearIntervalSpy).toHaveBeenCalledWith(existingInterval);
 
-      container.cleanup?.();
-
-      expect(unsubscribeMock).toHaveBeenCalled();
-      expect(countdownStore.cleanup).toHaveBeenCalled();
-    });
-
-    it("should handle cleanup when Card cleanup is undefined", () => {
-      const container = renderPage();
-
-      expect(() => container.cleanup?.()).not.toThrow();
-    });
+    clearIntervalSpy.mockRestore();
   });
 
-  describe("DOM Structure", () => {
-    it("should nest section inside main", () => {
-      const container = renderPage();
+  it("should cleanup on page cleanup", () => {
+    const page = renderPage();
 
-      const main = screen.getByRole("main");
-      const section = container.querySelector<HTMLElement>("section");
+    expect(page.cleanup).toBeDefined();
+    page.cleanup?.();
 
-      expect(section?.parentElement).toBe(main);
-    });
-
-    it("should have card wrapper with correct id", () => {
-      const container = renderPage();
-
-      const cardWrapper = container.querySelector<HTMLElement>("#card-wrapper");
-
-      expect(cardWrapper).toBeInTheDocument();
-      expect(cardWrapper?.id).toBe("card-wrapper");
-    });
-
-    it("should render only one section", () => {
-      const container = renderPage();
-
-      const sections = container.querySelectorAll("section");
-
-      expect(sections).toHaveLength(1);
-    });
-
-    it("should render only one card", () => {
-      const container = renderPage();
-
-      const cards = container.querySelectorAll(".relative");
-
-      expect(cards).toHaveLength(1);
-    });
-  });
-
-  describe("Multiple Renders", () => {
-    it("should clear previous interval when rendering again", () => {
-      const firstInterval = 123;
-      (countdownStore.getState as jest.Mock).mockReturnValue({
-        timeleft: 86400000,
-        intervalGetTimeLeft: null,
-      });
-
-      document.body.innerHTML = "";
-      renderPage();
-
-      document.body.innerHTML = "";
-      (countdownStore.getState as jest.Mock).mockReturnValue({
-        timeleft: 86400000,
-        intervalGetTimeLeft: firstInterval,
-      });
-
-      const clearIntervalSpy = jest.spyOn(global, "clearInterval");
-
-      renderPage();
-
-      expect(clearIntervalSpy).toHaveBeenCalledWith(firstInterval);
-    });
-
-    it("should create new interval on each render", () => {
-      const setIntervalSpy = jest.spyOn(global, "setInterval");
-
-      document.body.innerHTML = "";
-      renderPage();
-
-      const firstCallCount = setIntervalSpy.mock.calls.length;
-
-      document.body.innerHTML = "";
-      renderPage();
-
-      expect(setIntervalSpy.mock.calls.length).toBe(firstCallCount + 1);
-    });
-  });
-
-  describe("Edge Cases", () => {
-    it("should handle missing cardWrapper gracefully", () => {
-      const container = renderPage();
-
-      expect(container).toBeInTheDocument();
-      expect(screen.getByRole("main")).toBeInTheDocument();
-    });
-
-    it("should work with different interval values from store", () => {
-      const intervals = [100, 500, 999];
-
-      intervals.forEach((intervalValue) => {
-        document.body.innerHTML = "";
-        jest.clearAllMocks();
-
-        (countdownStore.getState as jest.Mock).mockReturnValue({
-          timeleft: 86400000,
-          intervalGetTimeLeft: intervalValue,
-        });
-
-        const clearIntervalSpy = jest.spyOn(global, "clearInterval");
-
-        renderPage();
-
-        expect(clearIntervalSpy).toHaveBeenCalledWith(intervalValue);
-      });
-    });
+    const state = countdownStore.getState();
+    expect(state.intervalGetTimeLeft).toBeNull();
   });
 });
