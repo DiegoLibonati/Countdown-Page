@@ -25,21 +25,29 @@ export const Card = ({ title }: CardProps): CardComponent => {
   const divRoot = document.createElement("div") as CardComponent;
   divRoot.className =
     "relative flex items-center justify-center flex-col w-[20rem] h-auto rounded-lg shadow-md";
+  divRoot.setAttribute("role", "region");
+  divRoot.setAttribute("aria-label", "Giveaway countdown card");
 
   divRoot.innerHTML = `
     <img
         src="${assets.images.cell}"
-        alt="iphone"
+        alt="iPhone product image"
         class="absolute -top-24 -right-6 z-20 h-auto w-24 object-cover"
     />
 
     <div class="flex flex-col items-center justify-center w-[18.5rem] h-48 p-3 m-2 bg-gradient-to-r from-violet-500 to-fuchsia-500 rounded-lg shadow-sm">
         <div class="info-center self-start">
             <h2 class="text-base text-secondary">${title}</h2>
-            <h4 class="text-sm text-secondary">Giveaway Ends On ${dayName}, ${dayNumber} ${monthName} ${yearNumber} ${hoursNumber}:${minutesNumber}${time}</h4> 
+            <h4 class="text-sm text-secondary">Giveaway Ends On ${dayName}, ${dayNumber} ${monthName} ${yearNumber} ${hoursNumber}:${minutesNumber}${time}</h4>
         </div>
 
-        <div class="flex flex-row items-center justify-between w-full mt-2" id="countdowns">
+        <div
+            class="flex flex-row items-center justify-between w-full mt-2"
+            id="countdowns"
+            role="group"
+            aria-label="Time remaining"
+            aria-live="polite"
+        >
         </div>
     </div>
   `;
@@ -56,7 +64,7 @@ export const Card = ({ title }: CardProps): CardComponent => {
 
     if (timeleft <= 0) {
       countdowns.innerHTML = `
-          <p class="text-secondary w-full text-center">The time to claim the offer has expired</p>
+          <p class="text-secondary w-full text-center" role="alert">The time to claim the offer has expired</p>
         `;
       return;
     }

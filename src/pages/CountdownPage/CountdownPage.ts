@@ -16,9 +16,10 @@ export const CountdownPage = (): Page => {
 
   const main = document.createElement("main") as Page;
   main.className = "h-screen w-screen bg-background";
+  main.setAttribute("aria-label", "Countdown page");
 
   main.innerHTML = `
-      <section class="flex items-center justify-center w-full h-full" id="card-wrapper">
+      <section class="flex items-center justify-center w-full h-full" id="card-wrapper" aria-label="Product giveaway countdown">
       </section>
     `;
 

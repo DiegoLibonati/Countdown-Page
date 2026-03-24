@@ -9,6 +9,7 @@ export const Countdown = ({
   const divRoot = document.createElement("div");
   divRoot.className = "flex items-center justify-center flex-col";
   divRoot.id = id;
+  divRoot.setAttribute("aria-label", `${count} ${title}`);
 
   divRoot.innerHTML = `
         <h4 class="py-3 px-2 bg-primary bg-opacity-75 rounded-lg text-white font-bold mb-2">

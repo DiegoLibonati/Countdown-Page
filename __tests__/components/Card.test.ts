@@ -71,7 +71,7 @@ describe("Card Component", () => {
     const image = document.querySelector<HTMLImageElement>("img");
     expect(image).toBeInTheDocument();
     expect(image).toHaveAttribute("src", "/images/cell.png");
-    expect(image).toHaveAttribute("alt", "iphone");
+    expect(image).toHaveAttribute("alt", "iPhone product image");
   });
 
   it("should cleanup subscription on component cleanup", () => {
