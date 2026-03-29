@@ -1,7 +1,7 @@
 import type { CardProps } from "@/types/props";
 import type { CardComponent } from "@/types/components";
 
-import { Card } from "@/components/Card/Card";
+import Card from "@/components/Card/Card";
 
 import { countdownStore } from "@/stores/countdownStore";
 

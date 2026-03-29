@@ -1,6 +1,6 @@
 import type { Page } from "@/types/pages";
 
-import { CountdownPage } from "@/pages/CountdownPage/CountdownPage";
+import CountdownPage from "@/pages/CountdownPage/CountdownPage";
 
 import { countdownStore } from "@/stores/countdownStore";
 

@@ -1,10 +1,10 @@
 import type { Page } from "@/types/pages";
 
-import { Card } from "@/components/Card/Card";
+import Card from "@/components/Card/Card";
 
 import { countdownStore } from "@/stores/countdownStore";
 
-export const CountdownPage = (): Page => {
+const CountdownPage = (): Page => {
   const { intervalGetTimeLeft } = countdownStore.getState();
 
   if (intervalGetTimeLeft) clearInterval(intervalGetTimeLeft);
@@ -36,3 +36,5 @@ export const CountdownPage = (): Page => {
 
   return main;
 };
+
+export default CountdownPage;

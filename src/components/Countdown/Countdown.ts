@@ -1,7 +1,7 @@
 import type { CountdownProps } from "@/types/props";
 import type { CountdownComponent } from "@/types/components";
 
-export const Countdown = ({
+const Countdown = ({
   id,
   count,
   title,
@@ -20,3 +20,5 @@ export const Countdown = ({
 
   return divRoot;
 };
+
+export default Countdown;

@@ -1,7 +1,7 @@
 import type { CardProps } from "@/types/props";
 import type { CardComponent } from "@/types/components";
 
-import { Countdown } from "@/components/Countdown/Countdown";
+import Countdown from "@/components/Countdown/Countdown";
 
 import { oneDay, oneHour, oneMin, oneSec } from "@/constants/vars";
 
@@ -11,7 +11,7 @@ import { formatZero } from "@/helpers/formatZero";
 
 import assets from "@/assets/export";
 
-export const Card = ({ title }: CardProps): CardComponent => {
+const Card = ({ title }: CardProps): CardComponent => {
   const {
     dayName,
     dayNumber,
@@ -116,3 +116,5 @@ export const Card = ({ title }: CardProps): CardComponent => {
 
   return divRoot;
 };
+
+export default Card;

@@ -3,7 +3,7 @@ import { screen } from "@testing-library/dom";
 import type { CountdownProps } from "@/types/props";
 import type { CountdownComponent } from "@/types/components";
 
-import { Countdown } from "@/components/Countdown/Countdown";
+import Countdown from "@/components/Countdown/Countdown";
 
 const renderComponent = (props: CountdownProps): CountdownComponent => {
   const container = Countdown(props);
