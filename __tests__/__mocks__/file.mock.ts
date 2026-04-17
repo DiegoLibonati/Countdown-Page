@@ -1,1 +1,1 @@
-export default "mock-file-path";
+export default "test-file-stub";
