@@ -1,4 +1,4 @@
-# Countdown Page
+# ZeroHour
 
 ## Educational Purpose
 
@@ -17,7 +17,11 @@ The application will open automatically at `http://localhost:3000`
 
 ## Description
 
-I made a web page that allows you to see a countdown, it can be very useful for the section of a page where a new game, product or something like that is about to be released.
+**ZeroHour** is a lightweight, zero-dependency countdown web application built with vanilla TypeScript and TailwindCSS. It displays a real-time countdown timer that ticks every second toward a target date and time, making it ideal for embedding in product launch pages, giveaway campaigns, game release announcements, or any scenario where building anticipation matters.
+
+The UI centers on a styled card that shows the target event's full date alongside four live countdown units — Days, Hours, Minutes, and Seconds — each updating automatically as time passes. When the countdown reaches zero, the timer stops and the card transitions to an expiration message, signaling that the offer or event window has closed.
+
+Under the hood, the app uses a generic reactive `Store<T>` class for state management, a component model based on plain TypeScript classes that return DOM elements, and a `setInterval`-driven render loop. The architecture is intentionally minimal: no frameworks, no runtime dependencies, just typed TypeScript composed into a single-page application bundled by Vite. The project also includes a full test suite with Jest, Testing Library, and 70%+ coverage enforced on every build.
 
 ## Technologies used
 
@@ -63,11 +67,7 @@ No production dependencies - Pure Vanilla TypeScript
 
 ## Portfolio Link
 
-[`https://www.diegolibonati.com.ar/#/project/Countdown-Page`](https://www.diegolibonati.com.ar/#/project/Countdown-Page)
-
-## Video
-
-https://github.com/DiegoLibonati/Countdown-Page/assets/99032604/7510a3f4-0721-406e-b0a7-cff22bf9d0d5
+[`https://www.diegolibonati.com.ar/#/project/zero-hour`](https://www.diegolibonati.com.ar/#/project/zero-hour)
 
 ## Testing
 

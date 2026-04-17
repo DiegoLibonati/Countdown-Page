@@ -4,7 +4,7 @@ import Card from "@/components/Card/Card";
 
 import { countdownStore } from "@/stores/countdownStore";
 
-const CountdownPage = (): Page => {
+const ZeroHourPage = (): Page => {
   const { intervalGetTimeLeft } = countdownStore.getState();
 
   if (intervalGetTimeLeft) clearInterval(intervalGetTimeLeft);
@@ -16,7 +16,7 @@ const CountdownPage = (): Page => {
 
   const main = document.createElement("main") as Page;
   main.className = "h-screen w-screen bg-background";
-  main.setAttribute("aria-label", "Countdown page");
+  main.setAttribute("aria-label", "ZeroHour page");
 
   main.innerHTML = `
       <section class="flex items-center justify-center w-full h-full" id="card-wrapper" aria-label="Product giveaway countdown">
@@ -37,4 +37,4 @@ const CountdownPage = (): Page => {
   return main;
 };
 
-export default CountdownPage;
+export default ZeroHourPage;

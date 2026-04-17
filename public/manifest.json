@@ -1,7 +1,7 @@
 {
-  "name": "Countdown",
-  "short_name": "Countdown",
-  "description": "I made a web page that allows you to see a countdown, it can be very useful for the section of a page where a new game, product or something like that is about to be released.",
+  "name": "ZeroHour",
+  "short_name": "ZeroHour",
+  "description": "ZeroHour is a lightweight, zero-dependency countdown web application built with vanilla TypeScript and TailwindCSS. It displays a real-time countdown timer that ticks every second toward a target date and time, making it ideal for embedding in product launch pages, giveaway campaigns, game release announcements, or any scenario where building anticipation matters.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

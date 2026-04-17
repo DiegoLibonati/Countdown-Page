@@ -5,47 +5,86 @@ import type { CountdownComponent } from "@/types/components";
 
 import Countdown from "@/components/Countdown/Countdown";
 
-const renderComponent = (props: CountdownProps): CountdownComponent => {
-  const container = Countdown(props);
-  document.body.appendChild(container);
-  return container;
+const defaultProps: CountdownProps = {
+  id: "days",
+  count: "05",
+  title: "Days",
 };
 
-describe("Countdown Component", () => {
+const renderComponent = (
+  props: Partial<CountdownProps> = {}
+): CountdownComponent => {
+  const element = Countdown({ ...defaultProps, ...props });
+  document.body.appendChild(element);
+  return element;
+};
+
+describe("Countdown", () => {
   afterEach(() => {
     document.body.innerHTML = "";
   });
 
-  const defaultProps: CountdownProps = {
-    id: "test-countdown",
-    count: "05",
-    title: "Days",
-  };
+  describe("rendering", () => {
+    it("should render the count value", () => {
+      renderComponent();
+      expect(screen.getByText("05")).toBeInTheDocument();
+    });
 
-  it("should render countdown with correct structure", () => {
-    renderComponent(defaultProps);
+    it("should render the title", () => {
+      renderComponent();
+      expect(screen.getByText("Days")).toBeInTheDocument();
+    });
 
-    const countdown = document.querySelector<HTMLDivElement>("#test-countdown");
-    expect(countdown).toBeInTheDocument();
+    it("should set the id on the root element", () => {
+      const element = renderComponent();
+      expect(element.id).toBe("days");
+    });
+
+    it("should set the aria-label combining count and title", () => {
+      const element = renderComponent();
+      expect(element).toHaveAttribute("aria-label", "05 Days");
+    });
   });
 
-  it("should display count and title", () => {
-    renderComponent(defaultProps);
+  describe("with different props", () => {
+    it("should render a different count value", () => {
+      renderComponent({ count: "12", title: "Hours", id: "hours" });
+      expect(screen.getByText("12")).toBeInTheDocument();
+    });
 
-    expect(screen.getByText("05")).toBeInTheDocument();
-    expect(screen.getByText("Days")).toBeInTheDocument();
+    it("should render a different title", () => {
+      renderComponent({ count: "30", title: "Mins", id: "mins" });
+      expect(screen.getByText("Mins")).toBeInTheDocument();
+    });
+
+    it("should set a different id", () => {
+      const element = renderComponent({
+        id: "secs",
+        count: "00",
+        title: "Secs",
+      });
+      expect(element.id).toBe("secs");
+    });
+
+    it("should update the aria-label with the new count and title", () => {
+      const element = renderComponent({
+        count: "59",
+        title: "Secs",
+        id: "secs",
+      });
+      expect(element).toHaveAttribute("aria-label", "59 Secs");
+    });
   });
 
-  it("should render with different values", () => {
-    const propsWithDifferentValues: CountdownProps = {
-      id: "hours-countdown",
-      count: "12",
-      title: "Hours",
-    };
+  describe("edge cases", () => {
+    it("should render count 00", () => {
+      renderComponent({ count: "00" });
+      expect(screen.getByText("00")).toBeInTheDocument();
+    });
 
-    renderComponent(propsWithDifferentValues);
-
-    expect(screen.getByText("12")).toBeInTheDocument();
-    expect(screen.getByText("Hours")).toBeInTheDocument();
+    it("should set aria-label to 00 Days when count is 00", () => {
+      const element = renderComponent({ count: "00" });
+      expect(element).toHaveAttribute("aria-label", "00 Days");
+    });
   });
 });
