@@ -16,7 +16,7 @@ const ZeroHourPage = (): Page => {
 
   const main = document.createElement("main") as Page;
   main.className = "h-screen w-screen bg-background";
-  main.setAttribute("aria-label", "ZeroHour page");
+  main.setAttribute("aria-label", "Zero Hour page");
 
   main.innerHTML = `
       <section class="flex items-center justify-center w-full h-full" id="card-wrapper" aria-label="Product giveaway countdown">

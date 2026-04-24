@@ -36,7 +36,7 @@ describe("ZeroHourPage", () => {
     it("should have the correct aria-label on the main element", () => {
       renderPage();
       expect(
-        screen.getByRole("main", { name: "ZeroHour page" })
+        screen.getByRole("main", { name: "Zero Hour page" })
       ).toBeInTheDocument();
     });
 

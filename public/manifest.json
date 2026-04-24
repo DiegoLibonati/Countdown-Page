@@ -1,7 +1,7 @@
 {
-  "name": "ZeroHour",
-  "short_name": "ZeroHour",
-  "description": "ZeroHour is a lightweight, zero-dependency countdown web application built with vanilla TypeScript and TailwindCSS. It displays a real-time countdown timer that ticks every second toward a target date and time, making it ideal for embedding in product launch pages, giveaway campaigns, game release announcements, or any scenario where building anticipation matters.",
+  "name": "Zero Hour",
+  "short_name": "Zero Hour",
+  "description": "Zero Hour is a lightweight, zero-dependency countdown web application built with vanilla TypeScript and TailwindCSS.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
