@@ -28,6 +28,7 @@ describe("Card", () => {
 
   afterEach(() => {
     document.body.innerHTML = "";
+    jest.clearAllMocks();
   });
 
   describe("rendering", () => {

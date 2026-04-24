@@ -3,6 +3,10 @@ import { CountdownStore } from "@/stores/countdownStore";
 describe("CountdownStore", () => {
   let store: CountdownStore;
 
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   beforeEach(() => {
     store = new CountdownStore({
       lastDate: new Date(2026, 9, 14, 10, 30, 0),

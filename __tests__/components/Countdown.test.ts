@@ -22,6 +22,7 @@ const renderComponent = (
 describe("Countdown", () => {
   afterEach(() => {
     document.body.innerHTML = "";
+    jest.clearAllMocks();
   });
 
   describe("rendering", () => {

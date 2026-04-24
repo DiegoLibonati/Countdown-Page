@@ -25,6 +25,7 @@ describe("ZeroHourPage", () => {
   afterEach(() => {
     document.body.innerHTML = "";
     jest.useRealTimers();
+    jest.restoreAllMocks();
   });
 
   describe("rendering", () => {
